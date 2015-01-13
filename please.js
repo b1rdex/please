@@ -22,14 +22,13 @@
     return Object.defineProperty(instances, 'spawn', {
       value: function() {
         var worker;
-        worker = new Worker('worker.js');
+        worker = new Worker('/bower_components/please/worker.js');
         this.push(worker);
         worker.onerror = function(error) {
           log('worker onerror', error);
         };
         worker.onmessage = function(event) {
           var message;
-          log('worker onmessage', event, event.data);
           message = event.data;
           if ('executed' in callbacks[message.id]) {
             return;
@@ -53,7 +52,7 @@
     }
     handler = handlers[fn];
     if (!handler) {
-      error = new Error('no such handler registered');
+      error = new Error('no such handler registered ' + fn);
       return callback(error);
     }
     instance = instances.getInstance();

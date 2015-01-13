@@ -14,14 +14,14 @@ instances = []
 
   Object.defineProperty instances, 'spawn',
     value: ->
-      worker = new Worker 'worker.js'
+      worker = new Worker '/bower_components/please/worker.js'
       this.push worker
       worker.onerror = (error) ->
         log 'worker onerror', error
         return
 
       worker.onmessage = (event) ->
-        log 'worker onmessage', event, event.data
+        # log 'worker onmessage', event, event.data
         message = event.data
         return if 'executed' of callbacks[message.id]
         callbacks[message.id].executed = true
@@ -40,7 +40,7 @@ self.please = (fn, data, callback, progressCallback) ->
 
   handler = handlers[fn]
   if !handler
-    error = new Error 'no such handler registered'
+    error = new Error 'no such handler registered ' + fn
     return callback error
 
   instance = instances.getInstance()
