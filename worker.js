@@ -2,9 +2,11 @@
   var reportResult;
 
   self.log = function() {
-    var args;
+    var args, _ref;
     args = arguments;
-    return console.log.apply(console, ['please:worker'].concat(Array.prototype.slice.apply(args)));
+    if ((typeof console !== "undefined" && console !== null ? (_ref = console.log) != null ? _ref.apply : void 0 : void 0) != null) {
+      return console.log.apply(console, ['please:worker'].concat(Array.prototype.slice.apply(args)));
+    }
   };
 
   self.imported = {};

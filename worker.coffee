@@ -1,6 +1,7 @@
 self.log = ->
   args = arguments
-  console.log.apply console, ['please:worker'].concat Array.prototype.slice.apply args
+  if console?.log?.apply?
+    console.log.apply console, ['please:worker'].concat Array.prototype.slice.apply args
 
 self.imported = {}
 
